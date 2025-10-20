@@ -1,5 +1,5 @@
-# bump: util-macros-version /UTIL-MACROS_VERSION="(.*)"/ https://www.x.org/archive/individual/util/util-macros-1.20.2.tar.xz|semver:*
-# UTIL-MACROS_VERSION="V.R.M"
+# bump: util-macros-version /UTIL_MACROS_VERSION="(.*)"/ https://www.x.org/archive/individual/util/|re:/href="util-macros-([\d.]+).tar.gz"/$1/|semver:*
+UTIL_MACROS_VERSION="1.20.2"
 
 ###
 ### Build control file for the util-macros port
@@ -9,10 +9,10 @@
 ### Required Environment Variables
 ###
 export ZOPEN_BUILD_LINE="STABLE"
-export ZOPEN_STABLE_URL="https://www.x.org/archive/individual/util/util-macros-1.20.2.tar.xz"
-export ZOPEN_STABLE_DEPS="make pkgconfig"
+export ZOPEN_STABLE_URL="https://www.x.org/archive/individual/util/util-macros-${UTIL_MACROS_VERSION}.tar.gz"
+export ZOPEN_STABLE_DEPS="make pkgconfig coreutils"
 export ZOPEN_DEV_URL=""
-export ZOPEN_DEV_DEPS="make pkgconfig"
+export ZOPEN_DEV_DEPS="make pkgconfig coreutils"
 export ZOPEN_CATEGORIES="development"
 export ZOPEN_RUNTIME_DEPS=""
 # export ZOPEN_SYSTEM_PREREQ="zos25" # optional system pre-req (default=zos25)
@@ -31,18 +31,18 @@ export ZOPEN_RUNTIME_DEPS=""
 ###
 
 zopen_check_results() {
-  dir="$1" 
-  pfx="$2" 
+  dir="$1"
+  pfx="$2"
   chk="$1/$2_check.log"
   # Add logic to extract the test results here:
-  echo "actualFailures:0" 
-  echo "totalTests:1" 
+  echo "actualFailures:0"
+  echo "totalTests:1"
   echo "expectedFailures:0"
   echo "expectedTotalTests:1"
 }
 
 zopen_get_version() {
-  echo "1.0.0" # Modify to echo the version of your tool/library
+  echo "$UTIL_MACROS_VERSION"
 }
 
 
